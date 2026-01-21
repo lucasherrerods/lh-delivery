@@ -7,15 +7,15 @@ import java.util.ArrayList;
 public class ProductRepository {
     private static final ArrayList<Product> products = new ArrayList<>();
 
-    public static void saveProduct(Product product) {
+    public void saveProduct(Product product) {
         products.add(product);
     }
 
-    public static ArrayList<Product> listProducts() {
+    public ArrayList<Product> listProducts() {
         return products;
     }
 
-    public static Product searchById(int id) {
+    public Product searchById(int id) {
         Product product = null;
 
         if (!listProducts().isEmpty()) {
@@ -31,7 +31,7 @@ public class ProductRepository {
         return product;
     }
 
-    public static Product removeProduct(int id) {
+    public Product removeProduct(int id) {
         Product product = searchById(id);
 
         if (product == null) {

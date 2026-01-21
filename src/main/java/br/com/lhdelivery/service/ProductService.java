@@ -6,12 +6,11 @@ import br.com.lhdelivery.repository.ProductRepository;
 import java.util.ArrayList;
 
 public class ProductService {
+    private final ProductRepository repository = new ProductRepository();
+
     public boolean registerProduct(Product product) {
         if (validateName(product) && validatePrice(product)) {
-            ProductRepository.saveProduct(product);
-
-            System.out.println("Produto adicionado com sucesso!");
-            System.out.println(product.toString());
+            repository.saveProduct(product);
             return true;
         }   else {
             return false;
@@ -19,7 +18,7 @@ public class ProductService {
     }
 
     public boolean validateName(Product product) {
-        for (Product p : ProductRepository.listProducts()) {
+        for (Product p : repository.listProducts()) {
             if (p.getName().equals(product.getName())) {
                 System.out.println("[ERRO] Já existe um produto cadastrado com esse nome.");
                 return false;
@@ -36,34 +35,33 @@ public class ProductService {
         return true;
     }
 
-    public void listProducts() {
-        ArrayList<Product> products = ProductRepository.listProducts();
+    public ArrayList<Product> listProducts() {
+        ArrayList<Product> products = repository.listProducts();
 
         if (products.isEmpty()) {
-            System.out.println("Nenhum produto cadastrado!");
-        }   else {
-            System.out.println(products);
+            return null;
         }
+
+        return products;
     }
 
-    public void searchProduct(int id) {
-        Product product = ProductRepository.searchById(id);
+    public Product searchProduct(int id) {
+        Product product = repository.searchById(id);
 
         if (product == null) {
-            System.out.println("Nenhum produto encontrado.");
-        }   else {
-            System.out.print("Produto: ");
-            System.out.println(product);
+            return null;
         }
+
+        return product;
     }
 
-    public void removeProduct(int id) {
-        Product product = ProductRepository.removeProduct(id);
+    public Product removeProduct(int id) {
+        Product product = repository.removeProduct(id);
 
         if (product == null) {
-            System.out.println("Produto não encontrado! Não foi possível realizar a exclusão.");
-        }   else {
-            System.out.println("Produto removido com sucesso.");
+            return null;
         }
+
+        return product;
     }
 }

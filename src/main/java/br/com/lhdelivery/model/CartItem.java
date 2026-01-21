@@ -1,5 +1,7 @@
 package br.com.lhdelivery.model;
 
+import br.com.lhdelivery.utils.MoneyFormatter;
+
 public class CartItem {
     private Product product;
     private int quantity;
@@ -25,6 +27,6 @@ public class CartItem {
 
     @Override
     public String toString() {
-        return "{ Item: " + getProduct() + ", Quantidade: " + getQuantity() + ", " + "Subtotal: " + getSubtotal() + " }";
+        return "{ Item: " + getProduct() + ", Quantidade: " + getQuantity() + ", " + "Subtotal: " + MoneyFormatter.formatter(getSubtotal()) + " }";
     }
 }

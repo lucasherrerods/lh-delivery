@@ -1,5 +1,7 @@
 package br.com.lhdelivery.model;
 
+import br.com.lhdelivery.utils.MoneyFormatter;
+
 import java.util.ArrayList;
 
 public class Cart {
@@ -34,6 +36,6 @@ public class Cart {
 
     @Override
     public String toString() {
-        return "{ Status: " + getStatus() + ", Itens: " + getItems() + ", Total: R$" + getTotal() + " }";
+        return "{ Status: " + getStatus() + ", Itens: " + getItems() + ", Total: R$" + MoneyFormatter.formatter(getTotal()) + " }";
     }
 }
