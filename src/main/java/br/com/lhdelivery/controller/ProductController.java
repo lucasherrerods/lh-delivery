@@ -1,6 +1,5 @@
 package br.com.lhdelivery.controller;
 
-import br.com.lhdelivery.model.CartItem;
 import br.com.lhdelivery.model.Product;
 import br.com.lhdelivery.service.ProductService;
 
@@ -19,12 +18,28 @@ public class ProductController {
         }
     }
 
-    public void list() {
+    public void validateName(Product product) {
+        boolean productName = service.validateName(product);
+
+        if (!productName) {
+            System.out.println("[ERRO] Já existe um produto cadastrado com esse nome.");
+        }
+    }
+
+    public void validatePrice(Product product) {
+        boolean productPrice = service.validatePrice(product);
+
+        if (!productPrice) {
+            System.out.println("[ERRO] Valor inválido, tente novamente.");
+        }
+    }
+
+    public boolean list() {
         ArrayList<Product> products = service.listProducts();
 
         if (products == null) {
             System.out.println("Nenhum produto cadastrado!");
-            return;
+            return false;
         }   else {
             System.out.println("------- PRODUTOS -------");
 
@@ -32,6 +47,7 @@ public class ProductController {
                 System.out.println("- ID " + p.getId() + ": " + p.getName() +
                         " | Preço: R$" + p.getPrice());
             }
+            return true;
         }
     }
 

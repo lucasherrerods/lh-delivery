@@ -20,7 +20,6 @@ public class ProductService {
     public boolean validateName(Product product) {
         for (Product p : repository.listProducts()) {
             if (p.getName().equals(product.getName())) {
-                System.out.println("[ERRO] Já existe um produto cadastrado com esse nome.");
                 return false;
             }
         }
@@ -29,7 +28,6 @@ public class ProductService {
 
     public boolean validatePrice(Product product) {
         if (product.getPrice() <= 0) {
-            System.out.println("[ERRO] Valor inválido, tente novamente.");
             return false;
         }
         return true;

@@ -1,8 +1,6 @@
 package br.com.lhdelivery.repository;
 
 import br.com.lhdelivery.model.Cart;
-import br.com.lhdelivery.model.CartItem;
-import br.com.lhdelivery.model.CartStatus;
 
 import java.util.ArrayList;
 
@@ -17,11 +15,7 @@ public class CartRepository {
         return new Cart();
     }
 
-    public Cart searchByStatus() {
-        for (Cart c : carts) {
-            if (c.getStatus() == CartStatus.OPEN) return c;
-        }
-
-        return null;
+    public ArrayList<Cart> listCarts() {
+        return carts;
     }
 }

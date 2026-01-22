@@ -5,13 +5,11 @@ import br.com.lhdelivery.model.CartItem;
 import br.com.lhdelivery.model.CartStatus;
 import br.com.lhdelivery.repository.CartRepository;
 
-import java.util.ArrayList;
-
 public class CartService {
     private final CartRepository repository = new CartRepository();
 
     public Cart createCart() {
-        Cart cart = repository.searchByStatus();
+        Cart cart = searchCartByStatus();
 
         if (cart == null) {
             cart = repository.newCart();
@@ -24,7 +22,7 @@ public class CartService {
     }
 
     public void addItem(CartItem item) {
-        Cart cart = repository.searchByStatus();
+        Cart cart = searchCartByStatus();
 
         if (cart == null) {
             cart =  repository.newCart();
@@ -36,7 +34,7 @@ public class CartService {
     }
 
     public void removeItem(CartItem item) {
-        Cart cart = repository.searchByStatus();
+        Cart cart = searchCartByStatus();
 
         if (cart != null) {
             cart.getItems().remove(item);
@@ -45,7 +43,7 @@ public class CartService {
     }
 
     public Cart showCart() {
-        Cart cart = repository.searchByStatus();
+        Cart cart = searchCartByStatus();
 
         if (cart == null) {
             return null;
@@ -55,7 +53,7 @@ public class CartService {
     }
 
     public CartItem searchItem(int id) {
-        Cart cart = repository.searchByStatus();
+        Cart cart = searchCartByStatus();
         CartItem item = null;
 
         if (cart != null) {
@@ -69,9 +67,21 @@ public class CartService {
         }
         return item;
     }
+    
+    public Cart searchCartByStatus() {
+        Cart cart = null;
+        
+        for (Cart c : repository.listCarts()) {
+            if (c.getStatus() == CartStatus.OPEN); {
+                cart = c;
+            }
+        }
+        
+        return cart;
+    }
 
     public void closeCart() {
-        Cart cart = repository.searchByStatus();
+        Cart cart = searchCartByStatus();
 
         if (cart != null) {
             cart.setStatus(CartStatus.CLOSED);
